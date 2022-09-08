@@ -1,0 +1,14 @@
+site_name: EpiGraphHub
+
+theme:
+  name: null
+  custom_dir: 'theme/'
+
+extra_css:
+  - theme/style.css
+
+nav:
+  - Home: 'index.md'
+  - Dashboard: 'https://epigraphhub.org'
+  - Blog: 'blog/index.md'
+  - Repositories: 'repositories.md'

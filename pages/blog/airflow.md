@@ -1,10 +1,19 @@
+---
+title: Airflow Overview
+summary: The Airflow Webserver is the GUI of Airflow. The Webserver's first page is the login page, the Users are defined in `airflow.cfg` and created during the Docker build of EpiGraphHub, more information about user configuration can be found in [Airflow's Official Documentation](https://airflow.apache.org/docs/apache-airflow/stable/security/webserver.html). The Webserver, although it's not necessary to the Airflow's operation, will work as an endpoint for the user to manage and follow the pipeline for each DAG.
+authors:
+  - Luã Bida
+date: 2022-09-29
+template: main.html
+---
+
 # Airflow Overview
 
 ## Webserver
 
 ![Webserver](https://i.imgur.com/OnR2c0X.png)
 
-The Airflow Webserver is the GUI of Airflow. The Webserver's first page is the login page, the Users are defined in `airflow.cfg` and created during the Docker build of EpiGraphHub, more information about user configuration can be found in [Airflow's Official Documentation](https://airflow.apache.org/docs/apache-airflow/stable/security/webserver.html). The Webserver, although it's not necessary to the Airflow's operation, will work as an endpoint for the user to manage and follow the pipeline for each DAG. In the GUI you can: 
+The Airflow Webserver is the GUI of Airflow. The Webserver's first page is the login page, the Users are defined in `airflow.cfg` and created during the Docker build of EpiGraphHub, more information about user configuration can be found in [Airflow's Official Documentation](https://airflow.apache.org/docs/apache-airflow/stable/security/webserver.html). The Webserver, although it's not necessary to the Airflow's operation, will work as an endpoint for the user to manage and follow the pipeline for each DAG. In the GUI you can:
 - easily find important information about the DAG and tasks runs;
 - manually trigger DAGs, pause or delete them;
 - follow the logs of a _task run_ individually;
@@ -15,7 +24,7 @@ As the [Airflow Scheduler](#Scheduler) constantly compiles DAGs into the interna
 
 ### DAG run
 
-A DAG will be triggered as defined in it's code. When a DAG is created, an interval between the runs is defined in the `schedule_interval` variable. Some accepted intervals are `@once`, `@daily`, `@weekly`. Also as CRON patterns:  `0  0  1  *  *` (monthly at midnight of day 1), `30 18 * 6-12 MON-FRI` (at  18:30  on every day-of-week from Monday through Friday  in every month from June through December). Check the [Official Documentation](https://airflow.apache.org/docs/apache-airflow/stable/dag-run.html) for more schedule intervals details. A DAG also can be manually triggered in the GUI or via [Command Line](https://airflow.apache.org/docs/apache-airflow/stable/cli-and-env-variables-ref.html), in the Graph tab of the Webserver it is possible to see the run in realtime when the DAG is triggered: 
+A DAG will be triggered as defined in it's code. When a DAG is created, an interval between the runs is defined in the `schedule_interval` variable. Some accepted intervals are `@once`, `@daily`, `@weekly`. Also as CRON patterns:  `0  0  1  *  *` (monthly at midnight of day 1), `30 18 * 6-12 MON-FRI` (at  18:30  on every day-of-week from Monday through Friday  in every month from June through December). Check the [Official Documentation](https://airflow.apache.org/docs/apache-airflow/stable/dag-run.html) for more schedule intervals details. A DAG also can be manually triggered in the GUI or via [Command Line](https://airflow.apache.org/docs/apache-airflow/stable/cli-and-env-variables-ref.html), in the Graph tab of the Webserver it is possible to see the run in realtime when the DAG is triggered:
 
 ![Manual trigger via GUI](https://i.imgur.com/wq1P3dv.png)
 
@@ -39,7 +48,7 @@ XComs (short for “cross-communications”) are stored by default in the Task I
 ```python
 value = task_instance.xcom_pull(task_ids='some_task')
 ```
-Note that XComs are meant for small data sharing between tasks, it may not (and shouldn't) work for larger data as DataFrames nor SQL Query results, please check the [XComs Official Documentation](https://airflow.apache.org/docs/apache-airflow/stable/concepts/xcoms.html) for more details. 
+Note that XComs are meant for small data sharing between tasks, it may not (and shouldn't) work for larger data as DataFrames nor SQL Query results, please check the [XComs Official Documentation](https://airflow.apache.org/docs/apache-airflow/stable/concepts/xcoms.html) for more details.
 
 In `foph` DAG one of the XComs is the relation between the `compare` task with the next one, and its returned value (pushed by default when a task has a `return` clause), which in this case will be an [Empty Task](#Empty-Task), followed by a task that updates the table in psql database:
 
@@ -62,7 +71,7 @@ Each DAG will have its specification, the `default_args` will define the configu
 | Argument | Definition  | Example |
 |:----:|:-----:|:-----:|
 |`owner`| Only the specified user or Admin will see the DAG | `str`
-|`depends_on_past`| If True, the DAG or task will only run if the previous task in the previous _DAG run_ was successful| `bool` | 
+|`depends_on_past`| If True, the DAG or task will only run if the previous task in the previous _DAG run_ was successful| `bool` |
 |`schedule_interval`| Defines the time interval of each DAG run | `@once`, `@daily`, <br>`14 30 1 * *`|
 |`start_date`| Can be a future or a past date, may be used for catching up old data as well | `datetime` or `pendulum` objects |
 |`trigger_rule`| Specially used in each task to define rather the task will run or not, depending on previous events | `all_success`(default), `one_success`, `all_failed`
@@ -77,7 +86,7 @@ Check out the [Official Documentation](https://airflow.apache.org/docs/apache-ai
 ### Catchup
 
 The `catchup` argument can be a bit tricky to understand. Imagine you have a DAG responsible for retrieving the log of an operation and save to a SQL database that runs every 24 hours. It will use the current _DAG run_ and the last _DAG run_ as the parameters for fetching which data it will load (for example the failed logs between today at 11pm and yesterday at 11pm). If  the argument `catchup` is set to `True`, the DAG will take (in this case a task for every day) back to the `start_date`, generating automatically the tasks and filling the failed logs that match each day in the past.
-[Here](https://medium.com/nerd-for-tech/airflow-catchup-backfill-demystified-355def1b6f92) is a good article about catching up missing data from a past date without changing the pipeline.    
+[Here](https://medium.com/nerd-for-tech/airflow-catchup-backfill-demystified-355def1b6f92) is a good article about catching up missing data from a past date without changing the pipeline.
 
 ### Trigger Rules
 
@@ -179,7 +188,7 @@ Airflow implements [Jinja  Templating](https://jinja.palletsprojects.com/en/2.11
 - `{{  ds  }}`: current datetime run of a task
 - `{{  dag_run  }}`: a reference to the DagRun object.
 
-Jinja Templating is a powerful that allows us to access variables, task ids, task arguments and even operations at runtime of a task, for instance, a dict value: `{{  var.json.get('my.dict.var',  {'key1':  'val1'})  }}` 
+Jinja Templating is a powerful that allows us to access variables, task ids, task arguments and even operations at runtime of a task, for instance, a dict value: `{{  var.json.get('my.dict.var',  {'key1':  'val1'})  }}`
 
 ## Scheduler
 
@@ -190,12 +199,12 @@ The Scheduler is responsible for executing the Airflow operation. Differently of
 If the Scheduler happens to stop running, a message like this will be shown in the GUI:
 ![Scheduler not found](https://i.imgur.com/3gkSTJ3.png)
 
-To execute the Scheduler manually, use the command `airflow scheduler` (`-D` to detached mode). 
+To execute the Scheduler manually, use the command `airflow scheduler` (`-D` to detached mode).
 As mentioned before, some [bad practices](https://airflow.apache.org/docs/apache-airflow/stable/best-practices.html) can slow down the Scheduler operations, the section "[What can you do, to improve Scheduler’s performance](https://airflow.apache.org/docs/apache-airflow/stable/concepts/scheduler.html#what-can-you-do-to-improve-scheduler-s-performance)" in the Official documentation explain which approaches can keep the Scheduler running faster, for example:
 - Reducing DAGs complexity
 - Improving resources utilization
 
-The Scheduler will reload the DAGs every minute, and keep running the tasks internally to ensure the well functioning of the Airflow Operation. Any change that breaks a DAG will be visible in the GUI due to the Scheduler, not only when the DAG is triggered, the code of the DAGs are also updated constantly and can be viewed in the GUI as well. 
+The Scheduler will reload the DAGs every minute, and keep running the tasks internally to ensure the well functioning of the Airflow Operation. Any change that breaks a DAG will be visible in the GUI due to the Scheduler, not only when the DAG is triggered, the code of the DAGs are also updated constantly and can be viewed in the GUI as well.
 
 ## What's next?
 

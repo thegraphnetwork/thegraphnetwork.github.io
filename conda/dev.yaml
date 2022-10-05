@@ -5,6 +5,7 @@ channels:
 dependencies:
   - python
   - mkdocs
+  - mkdocs-jupyter
   # dev
   - make
   - pre-commit

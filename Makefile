@@ -1,8 +1,8 @@
 
 .PHONY: build
 build:
-	mkdocs build --site-dir build --verbose --clean
+	mkdocs build --verbose --clean
 
 .PHONY: serve
 serve:
-	mkdocs serve --watch build
+	mkdocs serve --watch build --watch theme

@@ -1,3 +1,11 @@
+---
+title: EpiGraphHub
+authors:
+  - Ivan Ogasawara
+date: 2022-09-29
+template: home.html
+---
+
 <div class="elementor-widget-wrap elementor-element-populated">
   <div
     class="elementor-element elementor-element-4aab6cc elementor-widget elementor-widget-hub_fancy_heading"
@@ -31,24 +39,6 @@
           data for analytical purposes.
         </p>
       </div>
-
-    </div>
-  </div>
-  <div
-    class="elementor-element elementor-element-33622ed8 elementor-widget__width-auto elementor-mobile-align-center elementor-widget elementor-widget-ld_button"
-    data-id="33622ed8" data-element_type="widget"
-    data-widget_type="ld_button.default">
-    <div class="elementor-widget-container">
-
-      <a href="https://thegraphnetwork.org/our-work/"
-        class="elementor-button btn ws-nowrap btn-solid btn-lg btn-icon-right btn-hover-reveal btn-has-label">
-        <span class="btn-txt" data-text="See our work">See our
-          work</span>
-        <span class="btn-icon">
-          <i aria-hidden="true"
-            class="lqd-icn-ess icon-md-arrow-round-forward-2"></i>
-        </span>
-      </a>
 
     </div>
   </div>

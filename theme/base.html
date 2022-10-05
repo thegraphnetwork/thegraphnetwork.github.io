@@ -184,14 +184,17 @@
     <meta name="msapplication-TileImage"
      content="https://thegraphnetwork.org/wp-content/uploads/2021/07/cropped-Research_GRAPH_logo-2-1-1-2-3-270x270.png" />
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-      crossorigin="anonymous">
+    <link
+     href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+     rel="stylesheet"
+     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+     crossorigin="anonymous">
+    <script
+     src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+     crossorigin="anonymous">
     </script>
-     {% block header_extra %}{% endblock header_extra%}
+    {% block header_extra %}{% endblock header_extra%}
   </head>
 
   <body
@@ -392,11 +395,22 @@
                            class="main-nav d-flex reset-ul inline-ul lqd-menu-counter-right lqd-menu-items-inline main-nav-hover-fade-inactive"
                            data-submenu-options='{"toggleType":"fade","handler":"mouse-in-out"}'>
                             {% for nav_item in nav %}
+                            {% if nav_item.children %}
+                            <li>
+                              {% for sub_nav_item in nav_item.children %}
+                              {% if sub_nav_item.title == "main" %}
+                              <a
+                               href="{{ sub_nav_item.url|url }}">{{ nav_item.title }}</a>
+                              {% endif %}
+                              {% endfor %}
+                            </li>
+                            {% else %}
                             <li
                              class="{% if nav_item.active %}current{% endif %}">
                               <a
                                href="{{ nav_item.url|url }}">{{ nav_item.title }}</a>
                             </li>
+                            {% endif %}
                             {% endfor %}
                           </ul>
                           {% endif %}
@@ -634,8 +648,7 @@
                       <a
                        class="elementor-button btn ws-nowrap btn-naked btn-has-label"
                        target="_blank" rel="nofollow">
-                        <span class="btn-txt"
-                         data-text="epigraphhub(at)thegraphnetwork.org">admin(at)thegraphnetwork.org</span>
+                        <span class="btn-txt">epigraphhub(at)thegraphnetwork.org</span>
                       </a>
 
                     </div>

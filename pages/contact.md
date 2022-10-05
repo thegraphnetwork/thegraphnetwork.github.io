@@ -2,9 +2,10 @@
   <h1>Contact</h1>
 </section>
 
-<section>
+<section class="mt-4">
   <h2>Get Involved : Donate, Partner, Teach</h2>
 </section>
+
 
 <section>
 <iframe
@@ -16,4 +17,21 @@
   loading="lazy"
   referrerpolicy="no-referrer-when-downgrade"></iframe>
 
+</section>
+
+
+<section>
+<div class="card my-4" style="width: 18rem;">
+  <img src="https://picsum.photos/id/130/200/100" class="card-img-top" alt="contact">
+  <div class="card-body">
+    <h5 class="card-title">Contact</h5>
+    <p>Chem. des Mines 9, 1202 Genève, Switzerland</p>
+    <p>+41 22 379 41 79</p>
+    <p>
+      <a href="mailto:epigraphhub@thegraphnetwork.org">
+        epigraphhub(at)thegraphnetwork.org
+      </a>
+    </p>
+  </div>
+</div>
 </section>

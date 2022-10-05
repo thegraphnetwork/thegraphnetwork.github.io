@@ -15,7 +15,7 @@ nav:
   - Dashboard: 'https://dash.epigraphhub.org'
   - Blog:
     - main: 'blog/index.md'
-    - "EpiGraphHub": 'blog/epigraphhub.md'
+    - "Airflow": 'blog/airflow.md'
   - Repositories: 'repositories.md'
   - Partners: 'partners.md'
   - Contact: 'contact.md'

@@ -1,5 +1,8 @@
 site_name: EpiGraphHub
 
+docs_dir: pages
+site_dir: build
+
 theme:
   name: null
   custom_dir: 'theme/'
@@ -9,6 +12,13 @@ extra_css:
 
 nav:
   - Home: 'index.md'
-  - Dashboard: 'https://epigraphhub.org'
-  - Blog: 'blog/index.md'
+  - Dashboard: 'https://dash.epigraphhub.org'
+  - Blog:
+    - main: 'blog/index.md'
+    - "EpiGraphHub": 'blog/epigraphhub.md'
   - Repositories: 'repositories.md'
+  - Partners: 'partners.md'
+  - Contact: 'contact.md'
+
+plugins:
+  - mkdocs-jupyter
